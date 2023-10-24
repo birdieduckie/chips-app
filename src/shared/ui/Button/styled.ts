@@ -4,11 +4,10 @@ import { ButtonProps } from "./Button";
 
 export const StyledButton = styled.button<ButtonProps>`
   max-height: 110px;
-  min-width: 110px;
+  width: 110px;
   padding: 12px 16px;
-  margin: 0 10px 0 0;
   border: 0;
-  border-radius: 4px;
+  border-radius: 15px;
   color: #e1ebee;
   font-family: "Open Sans", sans-serif;
   font-size: 18px;
@@ -61,4 +60,11 @@ export const StyledButton = styled.button<ButtonProps>`
         color: #8f97a3;
       }
     `};
+  ${(p) =>
+    p.variant === "showMore" &&
+    css`
+      background: #c1d0b5;
+      color: #2c3e2c;
+      width: 65px;
+    `}
 `;
