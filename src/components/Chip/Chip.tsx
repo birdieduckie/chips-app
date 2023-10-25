@@ -5,9 +5,13 @@ import { Button } from "./styled";
 interface ChipProps {
   text: string;
   onResize?: (arg0: any) => void;
+  onClick: (arg0: string) => void;
+  selected: boolean;
 }
-export const Chip = ({ text, onResize }: ChipProps) => {
+export const Chip = ({ selected, text, onResize, onClick }: ChipProps) => {
   const chipRef = useRef<HTMLButtonElement>(null);
+
+  const handleClick = () => onClick(text);
 
   useLayoutEffect(() => {
     if (chipRef.current) {
@@ -17,7 +21,12 @@ export const Chip = ({ text, onResize }: ChipProps) => {
   }, []);
 
   return (
-    <Button ref={chipRef} variant="chips">
+    <Button
+      ref={chipRef}
+      variant="chips"
+      onClick={handleClick}
+      selected={selected}
+    >
       {text}
     </Button>
   );

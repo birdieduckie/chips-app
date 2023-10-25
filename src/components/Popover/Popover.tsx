@@ -5,10 +5,5 @@ interface PopoverProps {
 }
 
 export const Popover = ({ children }: PopoverProps) => {
-  return (
-    <Container>
-      {children}
-      <span>я поповер</span>
-    </Container>
-  );
+  return <Container>{children}</Container>;
 };

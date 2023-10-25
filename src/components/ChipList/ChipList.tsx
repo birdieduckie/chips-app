@@ -12,21 +12,22 @@ export const ChipList = () => {
 
   const [listWidth, setListWidth] = useState(0);
   const [chipWidth, setChipWidth] = useState(0);
-
+  const [selectedChip, setSelectedChip] = useState("");
   const [isShown, setIsShown] = useState(false);
 
-  const handleUpdate = (widthValue: number) => {
-    setChipWidth((prevState) => (prevState = widthValue));
-  };
-
   const calcAvailableItems = Math.floor(listWidth / chipWidth);
-
   const countedChips = mockChips.slice(0, calcAvailableItems);
-  console.log(countedChips);
-
   const remainChips = mockChips.slice(calcAvailableItems);
 
   const showMore = () => setIsShown((prevState) => !prevState);
+  const handleUpdate = (widthValue: number) => {
+    setChipWidth((prevState) => (prevState = widthValue));
+  };
+  const handleSelectChip = (chip: string) => {
+    chip === selectedChip || chip.toLowerCase().includes("защищенный")
+      ? setSelectedChip((prevState) => (prevState = ""))
+      : setSelectedChip((prevState) => (prevState = chip));
+  };
 
   useLayoutEffect(() => {
     if (listRef.current) {
@@ -50,14 +51,29 @@ export const ChipList = () => {
       <div>width: {listWidth}</div>
       <ChipWrapper ref={listRef}>
         {countedChips?.map((chip) => (
-          <Chip onResize={handleUpdate} key={chip} text={chip} />
+          <Chip
+            onResize={handleUpdate}
+            key={chip}
+            text={chip}
+            selected={chip === selectedChip}
+            onClick={handleSelectChip}
+          />
         ))}
-        <Button variant="showMore" onClick={showMore}>
+        <Button variant="chips" onClick={showMore}>
           ...
         </Button>
       </ChipWrapper>
       {isShown && (
-        <Popover>{remainChips?.map((chip) => <Chip text={chip} />)}</Popover>
+        <Popover>
+          {remainChips?.map((chip) => (
+            <Chip
+              key={chip}
+              text={chip}
+              selected={chip === selectedChip}
+              onClick={handleSelectChip}
+            />
+          ))}
+        </Popover>
       )}
     </Container>
   );

@@ -8,6 +8,7 @@ export interface ButtonProps {
   children?: any;
   className?: any;
   ref?: any;
+  selected?: boolean;
 }
 
 export const Button: FC<ButtonProps> = forwardRef(
@@ -18,6 +19,7 @@ export const Button: FC<ButtonProps> = forwardRef(
         className={props.className}
         variant={props.variant}
         onClick={props.onClick}
+        selected={props.selected}
       >
         {children}
       </StyledButton>
